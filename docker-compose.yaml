@@ -1,0 +1,9 @@
+services:
+  nextjs:
+    build: .
+    container_name: radharamansethi_nextjs_app
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+    restart: always
