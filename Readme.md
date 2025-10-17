@@ -27,7 +27,7 @@ This blog covers various topics including technology, programming, and personal 
 
 Feel free to reach out if you have any questions or suggestions:
 
-- Email: [your-email@example.com](mailto:your-email@example.com)
-- Twitter: [@your_twitter_handle](https://twitter.com/your_twitter_handle)
+- Email: [rrsethi13112001@gmail.com](mailto:rrsethi13112001@gmail.com)
+- Linkedin: [@Radharaman Sethi](https://www.linkedin.com/in/radharaman-sethi-53a3b1200/)
 
 Thank you for visiting my blog!
