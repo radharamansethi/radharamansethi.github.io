@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Radharaman Sethi — Blog</title>
+    <link>https://radharamansethi.github.io/blog/</link>
+    <description>Notes on code, tooling and growing as an engineer.</description>
+    <language>en</language>
+    <item>
+      <title>The JavaScript Event Loop, Explained Like You&#x27;re Waiting for Chai</title>
+      <link>https://radharamansethi.github.io/blog/event-loop-explained/</link>
+      <guid>https://radharamansethi.github.io/blog/event-loop-explained/</guid>
+      <pubDate>Mon, 28 Sep 2026 00:00:00 +0000</pubDate>
+      <description>Call stack, task queue, microtasks — why setTimeout(fn, 0) isn&#x27;t really zero, and why your Promise logs first.</description>
+    </item>
+    <item>
+      <title>Shipping a Next.js App in a Tiny Docker Image</title>
+      <link>https://radharamansethi.github.io/blog/nextjs-docker-small-images/</link>
+      <guid>https://radharamansethi.github.io/blog/nextjs-docker-small-images/</guid>
+      <pubDate>Wed, 12 Aug 2026 00:00:00 +0000</pubDate>
+      <description>How multi-stage builds and Next.js standalone output took my image from over a gigabyte to something I&#x27;m not embarrassed to push.</description>
+    </item>
+    <item>
+      <title>7 Git Habits That Saved Me From Myself</title>
+      <link>https://radharamansethi.github.io/blog/git-habits/</link>
+      <guid>https://radharamansethi.github.io/blog/git-habits/</guid>
+      <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
+      <description>Small, boring habits — atomic commits, --force-with-lease, reflog — that turned Git from a source of panic into a safety net.</description>
+    </item>
+    <item>
+      <title>Why I Started Learning in Public</title>
+      <link>https://radharamansethi.github.io/blog/learning-in-public/</link>
+      <guid>https://radharamansethi.github.io/blog/learning-in-public/</guid>
+      <pubDate>Sat, 18 Apr 2026 00:00:00 +0000</pubDate>
+      <description>Writing about what I&#x27;m learning — before I feel like an expert — has been the single biggest accelerator for my growth as an engineer.</description>
+    </item>
+  </channel>
+</rss>
