@@ -1,6 +1,6 @@
 # radharamansethi.github.io
 
-My personal portfolio and blog, live at **https://radharamansethi.github.io**.
+Portfolio and blog of Radharaman Sethi (OpenStack Infrastructure Engineer), live at **https://radharamansethi.github.io**.
 
 It's hand-built with plain HTML, CSS and vanilla JavaScript. There's no framework and no build step, so GitHub Pages serves it as is.
 
@@ -18,7 +18,7 @@ It's hand-built with plain HTML, CSS and vanilla JavaScript. There's no framewor
 ## Structure
 
 ```
-index.html              Home: hero, about, skills, projects, journey, latest posts, contact
+index.html              Home: hero, about, experience, skills, projects, certifications, latest posts, contact
 blog/index.html         Blog listing with search and tag filters
 blog/<slug>/index.html  Individual articles
 assets/css/style.css    All styles (theme colours are CSS variables at the top)
