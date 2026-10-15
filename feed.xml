@@ -3,35 +3,35 @@
   <channel>
     <title>Radharaman Sethi — Blog</title>
     <link>https://radharamansethi.github.io/blog/</link>
-    <description>Notes on code, tooling and growing as an engineer.</description>
+    <description>Notes on OpenStack, cloud networking and infrastructure security.</description>
     <language>en</language>
     <item>
-      <title>The JavaScript Event Loop, Explained Like You&#x27;re Waiting for Chai</title>
-      <link>https://radharamansethi.github.io/blog/event-loop-explained/</link>
-      <guid>https://radharamansethi.github.io/blog/event-loop-explained/</guid>
-      <pubDate>Mon, 28 Sep 2026 00:00:00 +0000</pubDate>
-      <description>Call stack, task queue, microtasks — why setTimeout(fn, 0) isn&#x27;t really zero, and why your Promise logs first.</description>
+      <title>Train Like It&#x27;s Real</title>
+      <link>https://radharamansethi.github.io/blog/train-like-its-real/</link>
+      <guid>https://radharamansethi.github.io/blog/train-like-its-real/</guid>
+      <pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate>
+      <description>Why the teams that handle incidents well have usually handled them before — and what realistic, hands-on practice actually takes.</description>
     </item>
     <item>
-      <title>Shipping a Next.js App in a Tiny Docker Image</title>
-      <link>https://radharamansethi.github.io/blog/nextjs-docker-small-images/</link>
-      <guid>https://radharamansethi.github.io/blog/nextjs-docker-small-images/</guid>
-      <pubDate>Wed, 12 Aug 2026 00:00:00 +0000</pubDate>
-      <description>How multi-stage builds and Next.js standalone output took my image from over a gigabyte to something I&#x27;m not embarrassed to push.</description>
+      <title>When Your Users Are Attackers by Design</title>
+      <link>https://radharamansethi.github.io/blog/users-are-attackers-by-design/</link>
+      <guid>https://radharamansethi.github.io/blog/users-are-attackers-by-design/</guid>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
+      <description>Cyber range isolation lessons from 2026&#x27;s OpenStack and KVM disclosures — hypervisor, image pipeline, tenant network and browser console.</description>
     </item>
     <item>
-      <title>7 Git Habits That Saved Me From Myself</title>
-      <link>https://radharamansethi.github.io/blog/git-habits/</link>
-      <guid>https://radharamansethi.github.io/blog/git-habits/</guid>
-      <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-      <description>Small, boring habits — atomic commits, --force-with-lease, reflog — that turned Git from a source of panic into a safety net.</description>
+      <title>Planning the Network for a Kolla-Ansible OpenStack Cloud</title>
+      <link>https://radharamansethi.github.io/blog/kolla-ansible-network-planning/</link>
+      <guid>https://radharamansethi.github.io/blog/kolla-ansible-network-planning/</guid>
+      <pubDate>Tue, 15 Sep 2026 00:00:00 +0000</pubDate>
+      <description>Bonds, VLANs, jumbo frames and VIPs — a practical way to lay out the networks before you run your first kolla-ansible deploy.</description>
     </item>
     <item>
-      <title>Why I Started Learning in Public</title>
-      <link>https://radharamansethi.github.io/blog/learning-in-public/</link>
-      <guid>https://radharamansethi.github.io/blog/learning-in-public/</guid>
-      <pubDate>Sat, 18 Apr 2026 00:00:00 +0000</pubDate>
-      <description>Writing about what I&#x27;m learning — before I feel like an expert — has been the single biggest accelerator for my growth as an engineer.</description>
+      <title>Debugging NoValidHost: A Field Guide</title>
+      <link>https://radharamansethi.github.io/blog/debugging-novalidhost/</link>
+      <guid>https://radharamansethi.github.io/blog/debugging-novalidhost/</guid>
+      <pubDate>Thu, 20 Aug 2026 00:00:00 +0000</pubDate>
+      <description>“No valid host was found” is Nova&#x27;s least helpful error. Here&#x27;s the order I check things in, from the fault message down to Placement inventory.</description>
     </item>
   </channel>
 </rss>

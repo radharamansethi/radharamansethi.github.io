@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>When Your Users Are Attackers by Design — Radharaman Sethi</title>
+  <meta name="description" content="Cyber range isolation lessons from 2026&#x27;s OpenStack and KVM disclosures — hypervisor, image pipeline, tenant network and browser console." />
+  <meta name="author" content="Radharaman Sethi" />
+  <meta name="theme-color" content="#07070c" />
+  <link rel="canonical" href="https://radharamansethi.github.io/blog/users-are-attackers-by-design/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="When Your Users Are Attackers by Design — Radharaman Sethi" />
+  <meta property="og:description" content="Cyber range isolation lessons from 2026&#x27;s OpenStack and KVM disclosures — hypervisor, image pipeline, tenant network and browser console." />
+  <meta property="og:url" content="https://radharamansethi.github.io/blog/users-are-attackers-by-design/" />
+  <meta property="og:image" content="https://radharamansethi.github.io/assets/img/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate" type="application/rss+xml" title="Radharaman Sethi — Blog" href="../../feed.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (!t) t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "When Your Users Are Attackers by Design", "description": "Cyber range isolation lessons from 2026's OpenStack and KVM disclosures \u2014 hypervisor, image pipeline, tenant network and browser console.", "datePublished": "2026-10-05", "author": {"@type": "Person", "name": "Radharaman Sethi", "url": "https://radharamansethi.github.io"}, "url": "https://radharamansethi.github.io/blog/users-are-attackers-by-design/"}</script>
+</head>
+<body data-root="../../">
+
+  <div class="progress" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="container">
+      <a href="../../" class="logo" aria-label="Radharaman Sethi — home"><span class="logo-mark">RS</span><span>radharaman<span class="grad-text">.</span></span></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="../../#about">About</a></li>
+        <li><a href="../../#experience">Experience</a></li>
+        <li><a href="../../#skills">Skills</a></li>
+        <li><a href="../../#projects">Projects</a></li>
+        <li><a href="../../blog/" class="active">Blog</a></li>
+        <li><a href="../../#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="kbd-hint" type="button" aria-label="Open command palette"><span>Search</span><kbd>Ctrl K</kbd></button>
+        <button class="icon-btn theme-toggle" type="button" aria-label="Toggle colour theme">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" type="button" aria-label="Open menu" aria-controls="nav-links" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <header class="article-head">
+        <div class="container">
+          <a href="../../blog/" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 19l-7-7 7-7"/></svg> All articles</a>
+          <div class="tags" style="justify-content:center"><a class="tag" href="../../blog/?tag=OpenStack">OpenStack</a><a class="tag" href="../../blog/?tag=Security">Security</a><a class="tag" href="../../blog/?tag=Cyber Ranges">Cyber Ranges</a></div>
+          <h1>When Your Users Are Attackers by Design</h1>
+          <p class="dek">Cyber range isolation lessons from 2026's OpenStack and KVM disclosures — hypervisor, image pipeline, tenant network and browser console.</p>
+          <div class="post-meta"><span>Radharaman Sethi</span><span class="dot"></span><time datetime="2026-10-05">Oct 5, 2026</time><span class="dot"></span><span>9 min read</span></div>
+        </div>
+      </header>
+
+      <div class="container">
+        <div class="article-cover cover-4" style="max-width:1000px;margin-inline:auto"><span class="emoji" aria-hidden="true">🔐</span></div>
+        <div class="article-layout">
+          <div class="prose">
+
+<p>In most clouds, a tenant who attacks the platform is an incident. On a cyber range, it is the curriculum. Participants get root on their machines, attack tooling, and an explicit mandate to probe, pivot and escalate. That makes a range the most adversarial tenant population an OpenStack cloud can host.</p>
+<p>2026 has been a busy year for OpenStack and KVM security disclosures. Read from a cyber range point of view, four of them map neatly onto the four isolation layers every range depends on: the hypervisor, the image pipeline, the tenant network, and the browser console. This post walks through each disclosure and what it means when your users are attackers by design.</p>
+
+<h2>Layer 1: The hypervisor boundary (CVE-2026-53359, "Januscape")</h2>
+<p>On July 4, 2026, NVD published CVE-2026-53359, a use-after-free in the Linux kernel's KVM x86 shadow MMU, disclosed publicly as Januscape. It is not an OpenStack bug, but every KVM-based OpenStack compute node inherits it. According to the public disclosure, a guest can trigger it on Intel and AMD hosts when nested virtualization is exposed. A denial-of-service proof of concept is public, and the researcher reports a working guest-to-host escape in a controlled environment.</p>
+<p>The highest-risk profile reads like a description of a cyber range: x86 KVM hosts, untrusted multi-tenant guests, root inside the guest, and nested virtualization available. Ranges are tempted to enable nested virtualization because some exercises need it, such as running a hypervisor-based malware lab or a virtual appliance that is itself a VM host.</p>
+<p><strong>What this means for a range:</strong> nested virtualization should be a deliberate, scoped capability, never a fleet-wide default. It can be exposed at several layers, so a review has to check all of them:</p>
+<ul>
+  <li>Host KVM module settings for nested support</li>
+  <li>libvirt CPU mode, especially <code>host-passthrough</code> and <code>host-model</code></li>
+  <li>Flavor extra specs, image properties and host aggregates that expose CPU features</li>
+  <li>Whether running guests can actually see the <code>vmx</code> (Intel) or <code>svm</code> (AMD) flag</li>
+</ul>
+<p>Where an exercise genuinely needs nested virtualization, it belongs on a dedicated host aggregate, so a breakout cannot reach other tenants' workloads. When patching, check your distribution's backported fixes rather than trusting <code>uname -r</code> alone, because enterprise kernels often keep older version strings.</p>
+
+<h2>Layer 2: The image pipeline (CVE-2026-24708)</h2>
+<p>In February 2026, OSSA-2026-002 disclosed that Nova invoked <code>qemu-img</code> without format restrictions during resize. A crafted disk image could abuse this to overwrite arbitrary files on the compute host. Fixed releases are Nova 30.2.2, 31.2.1 and 32.1.1, and downstream vendors shipped patches.</p>
+<p>Cyber ranges consume more third-party images than almost any other cloud. A single scenario can combine vendor firewalls, routers, VPN gateways, IDS/IPS sensors, WAFs, SD-WAN appliances and deliberately vulnerable targets, often sourced from many different places. Each one is a disk image the hypervisor host will parse.</p>
+<p><strong>What this means for a range:</strong> treat image intake as a supply chain, not a file upload.</p>
+<ul>
+  <li>Restrict who can upload images to Glance, and keep participants out of that path entirely</li>
+  <li>Inspect and normalize images offline before they reach production, using tools such as <code>qemu-img info</code> and <code>virt-inspector</code></li>
+  <li>Set explicit image properties (disk format, machine type, NIC and video models) rather than relying on auto-detection</li>
+  <li>Keep Nova patched. Format-handling bugs recur, and this fix only closed one code path</li>
+</ul>
+
+<h2>Layer 3: Tenant network isolation (Neutron ownership bugs)</h2>
+<p>Neutron had a run of authorization flaws this summer that share one root cause: an API checked permission on one object, then acted on another without confirming they belonged together.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Advisory</th><th>Published</th><th>What a tenant could do</th><th>Fixed in</th></tr></thead>
+<tbody>
+<tr><td>CVE-2026-55707 (OSSA-2026-032)</td><td>Aug 2026</td><td>Onboard another project's shared-network subnets into their own subnet pool, altering the victim's L3 routing and address scope</td><td>Neutron 28.0.2</td></tr>
+<tr><td><a href="https://docs.openstack.org/security-notes/OSSN-0102.html" target="_blank" rel="noopener">OSSN-0102</a></td><td>Jul 2026</td><td>Read or modify another project's port forwardings or conntrack helpers by pairing them with their own floating IP or router ID</td><td>Neutron 26.0.4, 27.0.3, 28.0.1</td></tr>
+<tr><td>CVE-2026-49299</td><td>Jun 2026</td><td>As a project manager, create a port on another project's shared network with a <code>network:</code> device owner such as <code>network:dhcp</code></td><td>Neutron 28.0.1</td></tr>
+</tbody></table></div>
+<p>None of these is a dramatic remote exploit. But on a range, participants are actively encouraged to enumerate and abuse the platform's APIs, and an unpatched cross-project bug turns a training exercise into a real tenant-to-tenant breach.</p>
+<p><strong>What this means for a range:</strong> avoid giving participants OpenStack API credentials wherever possible, and minimize shared networks between tenants.</p>
+<ul>
+  <li>Participants interact with their lab through the range's own portal, not Horizon or the OpenStack CLI</li>
+  <li>Each team or exercise gets its own project and networks. Reserve shared networks for platform services</li>
+  <li>Security groups follow an allow-only model: remove the default egress-allow rule and add only what the scenario needs</li>
+  <li>Clean up stale ports, networks and security groups routinely, because orphaned resources are attack surface nobody is watching</li>
+</ul>
+
+<h2>Layer 4: The browser console (OSSN-0101)</h2>
+<p>In July 2026, <a href="https://docs.openstack.org/security-notes/OSSN-0101.html" target="_blank" rel="noopener">OSSN-0101</a> described a flaw in Nova's console WebSocket proxy, the component behind the browser VNC console. On every request, the proxy appended the client-supplied Host header to a shared, process-wide allowed-origins list, and those entries stayed there until the process restarted. An unauthenticated attacker could add arbitrary hostnames to the list, defeating the Origin check for every later request, and slowly exhaust memory along the way.</p>
+<p>For most clouds, the console is an occasional admin convenience. For a cyber range, it is the front door: participants spend hours in browser consoles, and the console proxy is directly reachable from the networks they work from.</p>
+<p><strong>What this means for a range:</strong> put the console behind your own access layer instead of exposing the stock proxy directly.</p>
+<ul>
+  <li>Front the console with a reverse proxy that enforces authentication, TLS and a strict Host and Origin policy before traffic reaches Nova</li>
+  <li>Issue console sessions through the range portal, tied to the participant's role and current exercise</li>
+  <li>Treat the noVNC client as a maintained dependency, kept current like any other frontend library</li>
+  <li>Watch console proxy memory and restart behavior. Slow memory growth was this bug's only visible symptom</li>
+</ul>
+
+<h2>Design principles, layer by layer</h2>
+<p>The common thread is one working assumption: <strong>every participant VM is hostile, and every layer must hold even if the one above it fails.</strong></p>
+<div class="table-wrap"><table>
+<thead><tr><th>Layer</th><th>2026 disclosure</th><th>Principle</th></tr></thead>
+<tbody>
+<tr><td>Hypervisor</td><td>CVE-2026-53359 (Januscape)</td><td>Nested virtualization only where a scenario requires it, never as a default CPU feature</td></tr>
+<tr><td>Image pipeline</td><td>CVE-2026-24708</td><td>Curated images, inspected and tested before they enter Glance. No participant uploads</td></tr>
+<tr><td>Tenant network</td><td>CVE-2026-55707, OSSN-0102, CVE-2026-49299</td><td>No participant API credentials, per-exercise projects and networks, and allow-only security groups</td></tr>
+<tr><td>Console access</td><td>OSSN-0101</td><td>Consoles brokered through a portal and hardened reverse proxy, never the raw Nova proxy</td></tr>
+</tbody></table></div>
+<p>Two habits carry a lot of the weight in practice. First, <strong>automated hygiene</strong>: scheduled cleanup of orphaned resources, with dry-run defaults, backups before deletion and age guards so live exercises are never touched. Second, <strong>appliance compatibility testing</strong>: validate every virtual firewall, router, IDS and WAF image before it appears in a scenario.</p>
+
+<h2>A checklist for cyber range operators</h2>
+<ul class="checklist">
+  <li>Confirm whether any guest can see <code>vmx</code> or <code>svm</code>, and whether it should</li>
+  <li>Verify compute host kernels against your distribution's Januscape advisory</li>
+  <li>Upgrade Nova and Neutron past the fixed releases listed above</li>
+  <li>Remove participant access to OpenStack APIs, Horizon and image upload</li>
+  <li>Audit shared networks and cross-project RBAC policies</li>
+  <li>Put a hardened reverse proxy in front of the console proxy</li>
+  <li>Schedule cleanup of orphaned network resources</li>
+  <li>Subscribe to OpenStack Security Advisories and Security Notes</li>
+</ul>
+
+<h2>Closing thoughts</h2>
+<p>None of this year's disclosures was unique to cyber ranges. But a range is where they matter most, because the people most likely to find and use them are already logged in and being rewarded for it. Isolation on a range cannot rest on any single layer. The hypervisor, the image pipeline, the network and the console each need their own controls, so that one advisory never becomes one breach.</p>
+<p>If you run a range, a training lab or any OpenStack cloud with untrusted tenants, I'd be glad to compare notes.</p>
+
+<hr />
+<h3>References</h3>
+<ul>
+  <li><a href="https://vexxhost.com/blog/cve-2026-53359-openstack-kvm-x86-compute-isolation/" target="_blank" rel="noopener">VEXXHOST: CVE-2026-53359 and OpenStack, a KVM/x86 compute isolation issue</a></li>
+  <li><a href="https://security.openstack.org/ossalist.html" target="_blank" rel="noopener">OpenStack Security Advisories</a></li>
+  <li><a href="https://access.redhat.com/errata/RHSA-2026:7884" target="_blank" rel="noopener">Red Hat RHSA-2026:7884, openstack-nova (CVE-2026-24708)</a></li>
+  <li><a href="https://cyberstrike.io/cve/CVE-2026-55707/" target="_blank" rel="noopener">CVE-2026-55707, Neutron subnetpool onboarding</a></li>
+  <li><a href="https://docs.openstack.org/security-notes/OSSN-0102.html" target="_blank" rel="noopener">OSSN-0102: Neutron sub-resource APIs do not verify parent ownership</a></li>
+  <li><a href="https://docs.openstack.org/security-notes/OSSN-0101.html" target="_blank" rel="noopener">OSSN-0101: Nova console WebSocket proxy Origin allow-list poisoning</a></li>
+  <li><a href="https://www.cvedetails.com/vulnerability-list/vendor_id-11727/Openstack.html" target="_blank" rel="noopener">OpenStack CVE list (CVE Details)</a></li>
+</ul>
+<p class="disclaimer">Advisory details and fixed versions are summarised from the public sources above. Always check the original advisories for your release.</p>
+
+          </div>
+          <aside class="toc" aria-label="Table of contents"><h4>On this page</h4><ol></ol></aside>
+        </div>
+
+        <div class="article-foot">
+          <div class="share">
+            <span>Found this useful? Pass it on.</span>
+            <button class="btn btn-ghost" type="button" data-share><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg> Share</button>
+            <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=https://radharamansethi.github.io/blog/users-are-attackers-by-design/"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg> LinkedIn</a>
+          </div>
+          <p class="disclaimer" style="padding-top:24px">This post reflects my personal views and publicly available information only. It does not represent any employer, client or product.</p>
+          <div class="author-box">
+            <div class="mini-avatar">RS</div>
+            <div>
+              <h4>Written by Radharaman Sethi</h4>
+              <p>OpenStack infrastructure engineer writing about private cloud, networking and security. <a href="../../#contact" style="color:var(--accent-2)">Say hi →</a></p>
+            </div>
+          </div>
+          <div class="next-posts">
+            <h3>Keep reading</h3>
+            <div class="posts-grid" data-posts="related" data-current="users-are-attackers-by-design"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span data-year>2026</span> Radharaman Sethi · Views are my own and do not represent any employer.</span>
+      <div class="footer-links">
+        <a href="https://github.com/radharamansethi" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/radharaman-sethi-53a3b1200/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:rrsethi13112001@gmail.com">Email</a>
+        <a href="../../feed.xml">RSS</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/posts.js"></script>
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

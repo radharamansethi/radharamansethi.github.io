@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Planning the Network for a Kolla-Ansible OpenStack Cloud — Radharaman Sethi</title>
+  <meta name="description" content="Bonds, VLANs, jumbo frames and VIPs — a practical way to lay out the networks before you run your first kolla-ansible deploy." />
+  <meta name="author" content="Radharaman Sethi" />
+  <meta name="theme-color" content="#07070c" />
+  <link rel="canonical" href="https://radharamansethi.github.io/blog/kolla-ansible-network-planning/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Planning the Network for a Kolla-Ansible OpenStack Cloud — Radharaman Sethi" />
+  <meta property="og:description" content="Bonds, VLANs, jumbo frames and VIPs — a practical way to lay out the networks before you run your first kolla-ansible deploy." />
+  <meta property="og:url" content="https://radharamansethi.github.io/blog/kolla-ansible-network-planning/" />
+  <meta property="og:image" content="https://radharamansethi.github.io/assets/img/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate" type="application/rss+xml" title="Radharaman Sethi — Blog" href="../../feed.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (!t) t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Planning the Network for a Kolla-Ansible OpenStack Cloud", "description": "Bonds, VLANs, jumbo frames and VIPs \u2014 a practical way to lay out the networks before you run your first kolla-ansible deploy.", "datePublished": "2026-09-15", "author": {"@type": "Person", "name": "Radharaman Sethi", "url": "https://radharamansethi.github.io"}, "url": "https://radharamansethi.github.io/blog/kolla-ansible-network-planning/"}</script>
+</head>
+<body data-root="../../">
+
+  <div class="progress" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="container">
+      <a href="../../" class="logo" aria-label="Radharaman Sethi — home"><span class="logo-mark">RS</span><span>radharaman<span class="grad-text">.</span></span></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="../../#about">About</a></li>
+        <li><a href="../../#experience">Experience</a></li>
+        <li><a href="../../#skills">Skills</a></li>
+        <li><a href="../../#projects">Projects</a></li>
+        <li><a href="../../blog/" class="active">Blog</a></li>
+        <li><a href="../../#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="kbd-hint" type="button" aria-label="Open command palette"><span>Search</span><kbd>Ctrl K</kbd></button>
+        <button class="icon-btn theme-toggle" type="button" aria-label="Toggle colour theme">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" type="button" aria-label="Open menu" aria-controls="nav-links" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <header class="article-head">
+        <div class="container">
+          <a href="../../blog/" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 19l-7-7 7-7"/></svg> All articles</a>
+          <div class="tags" style="justify-content:center"><a class="tag" href="../../blog/?tag=OpenStack">OpenStack</a><a class="tag" href="../../blog/?tag=Networking">Networking</a><a class="tag" href="../../blog/?tag=Kolla-Ansible">Kolla-Ansible</a></div>
+          <h1>Planning the Network for a Kolla-Ansible OpenStack Cloud</h1>
+          <p class="dek">Bonds, VLANs, jumbo frames and VIPs — a practical way to lay out the networks before you run your first kolla-ansible deploy.</p>
+          <div class="post-meta"><span>Radharaman Sethi</span><span class="dot"></span><time datetime="2026-09-15">Sep 15, 2026</time><span class="dot"></span><span>8 min read</span></div>
+        </div>
+      </header>
+
+      <div class="container">
+        <div class="article-cover cover-1" style="max-width:1000px;margin-inline:auto"><span class="emoji" aria-hidden="true">🧭</span></div>
+        <div class="article-layout">
+          <div class="prose">
+
+<p>Most painful OpenStack problems I've seen trace back to decisions made before the first <code>kolla-ansible deploy</code>: which traffic shares a wire, where the MTU changes, and which interface Neutron is allowed to own. Networks are much harder to change after day one than services are.</p>
+<p>This is the general approach I use when planning one. The addresses below are documentation ranges, not any real environment, so swap in your own.</p>
+
+<h2>Separate traffic by trust and by volume</h2>
+<p>A typical multi-node cloud has at least these kinds of traffic. Each one deserves its own VLAN, and usually its own subnet:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Network</th><th>Carries</th><th>MTU</th></tr></thead>
+<tbody>
+<tr><td>Management / internal API</td><td>SSH, Ansible, internal endpoints, DB, RabbitMQ</td><td>1500</td></tr>
+<tr><td>Tunnel</td><td>VXLAN tenant overlay between computes and network nodes</td><td>9000</td></tr>
+<tr><td>Storage public</td><td>Ceph clients: RBD for Nova, Cinder and Glance</td><td>9000</td></tr>
+<tr><td>Storage cluster</td><td>Ceph OSD replication only</td><td>9000</td></tr>
+<tr><td>Public API</td><td>External VIP for Horizon and public endpoints</td><td>1500</td></tr>
+<tr><td>External / provider</td><td>Router gateways and floating IPs</td><td>1500</td></tr>
+</tbody></table></div>
+<p>The point isn't the exact list. It's that a noisy Ceph rebalance should never be able to starve your API traffic, and tenant traffic should never share a broadcast domain with your database.</p>
+
+<h2>Two bonds, two jobs</h2>
+<p>A pattern that has served me well on controllers and computes:</p>
+<ul>
+  <li><strong><code>bond0</code></strong> carries <em>host</em> VLANs as sub-interfaces (<code>bond0.10</code>, <code>bond0.20</code> …). These have IP addresses.</li>
+  <li><strong><code>bond1</code></strong> is handed entirely to Open vSwitch as a provider trunk (<code>br-ex</code>). It has <strong>no host IP</strong>. Neutron owns it.</li>
+</ul>
+<p>In Kolla-Ansible terms, that maps neatly onto <code>network_interface</code> (management), <code>tunnel_interface</code>, <code>api_interface</code>, and <code>neutron_external_interface</code>:</p>
+<div class="code-block"><div class="code-head"><span>yaml</span><button class="copy-btn" type="button">Copy</button></div><pre><code><span class="c"># /etc/kolla/globals.yml (excerpt)</span>
+<span class="k">network_interface</span>: <span class="s">"bond0.10"</span>
+<span class="k">api_interface</span>: <span class="s">"bond0.10"</span>
+<span class="k">kolla_external_vip_interface</span>: <span class="s">"bond0.50"</span>
+<span class="k">tunnel_interface</span>: <span class="s">"bond0.20"</span>
+<span class="k">neutron_external_interface</span>: <span class="s">"bond1"</span>
+<span class="k">kolla_internal_vip_address</span>: <span class="s">"10.10.10.10"</span>
+<span class="k">kolla_external_vip_address</span>: <span class="s">"203.0.113.10"</span></code></pre></div>
+<div class="callout"><span class="ci">⚠️</span><p>Never give <code>neutron_external_interface</code> an IP address or use it for anything else. Once OVS takes it over, anything the host was doing on it stops working, and that's a very confusing way to lose SSH.</p></div>
+
+<h2>Jumbo frames, end to end or not at all</h2>
+<p>Running tunnel and storage traffic at MTU 9000 is worth it, but only if <strong>every</strong> hop agrees. That includes host interfaces, bonds, VLAN sub-interfaces and every switch port in between, which usually need 9216 to allow for headers.</p>
+<p>Test it before you deploy anything:</p>
+<div class="code-block"><div class="code-head"><span>bash</span><button class="copy-btn" type="button">Copy</button></div><pre><code><span class="c"># 8972 = 9000 minus 28 bytes of IP + ICMP headers; -M do forbids fragmentation</span>
+ping -M do -s 8972 &lt;peer-on-tunnel-vlan&gt;</code></pre></div>
+<p>Also remember VXLAN's overhead. If the underlay is 9000, tenant networks need to be around 8950. Get this wrong and you'll see the classic symptom: SSH connects, then hangs the moment you run anything that prints more than a screen.</p>
+
+<h2>Give every host exactly one default route</h2>
+<p>Multi-homed hosts with several gateways cause asymmetric routing that looks like random packet loss. Pick one default route per host role. For example, controllers route out through the public API network and everything else through management. Use specific routes for anything else.</p>
+
+<h2>VIPs, HAProxy and TLS</h2>
+<p>Kolla-Ansible puts HAProxy and keepalived in front of the APIs with two virtual IPs: an internal one on the management network and an external one on the public network. Plan DNS names for both early, because your TLS certificates need them. Retrofitting TLS onto a running cloud is a lot more work than starting with it.</p>
+
+<h2>Plan for the things you'll add later</h2>
+<ul>
+  <li><strong>Octavia</strong> needs a management network that controllers can reach <em>and</em> amphora VMs can attach to, so it often has to be present on both bonds.</li>
+  <li><strong>Physical devices</strong> (lab hardware, appliances) are easiest to bring in as extra provider VLANs on the same <code>bond1</code> trunk.</li>
+  <li><strong>Out-of-band management</strong> (BMC / IPMI) belongs on its own network, completely outside the cloud.</li>
+</ul>
+
+<h2>A pre-deploy checklist</h2>
+<ol>
+  <li>Every traffic type mapped to a VLAN, subnet and MTU.</li>
+  <li>Switch ports configured as LACP trunks with the right VLANs and MTU 9216.</li>
+  <li>Jumbo-frame ping succeeds between every pair of hosts on 9000-MTU networks.</li>
+  <li>The external interface has no IP and nothing else depends on it.</li>
+  <li>One default route per host, and DNS names and certificates ready for both VIPs.</li>
+</ol>
+<p>None of this is glamorous. But every hour spent here saves a day of chasing "intermittent" problems later. 🧭</p>
+
+          </div>
+          <aside class="toc" aria-label="Table of contents"><h4>On this page</h4><ol></ol></aside>
+        </div>
+
+        <div class="article-foot">
+          <div class="share">
+            <span>Found this useful? Pass it on.</span>
+            <button class="btn btn-ghost" type="button" data-share><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg> Share</button>
+            <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=https://radharamansethi.github.io/blog/kolla-ansible-network-planning/"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg> LinkedIn</a>
+          </div>
+          <p class="disclaimer" style="padding-top:24px">This post reflects my personal views and publicly available information only. It does not represent any employer, client or product.</p>
+          <div class="author-box">
+            <div class="mini-avatar">RS</div>
+            <div>
+              <h4>Written by Radharaman Sethi</h4>
+              <p>OpenStack infrastructure engineer writing about private cloud, networking and security. <a href="../../#contact" style="color:var(--accent-2)">Say hi →</a></p>
+            </div>
+          </div>
+          <div class="next-posts">
+            <h3>Keep reading</h3>
+            <div class="posts-grid" data-posts="related" data-current="kolla-ansible-network-planning"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span data-year>2026</span> Radharaman Sethi · Views are my own and do not represent any employer.</span>
+      <div class="footer-links">
+        <a href="https://github.com/radharamansethi" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/radharaman-sethi-53a3b1200/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:rrsethi13112001@gmail.com">Email</a>
+        <a href="../../feed.xml">RSS</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/posts.js"></script>
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>
