@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Debugging NoValidHost: A Field Guide — Radharaman Sethi</title>
+  <meta name="description" content="“No valid host was found” is Nova&#x27;s least helpful error. Here&#x27;s the order I check things in, from the fault message down to Placement inventory." />
+  <meta name="author" content="Radharaman Sethi" />
+  <meta name="theme-color" content="#07070c" />
+  <link rel="canonical" href="https://radharamansethi.github.io/blog/debugging-novalidhost/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Debugging NoValidHost: A Field Guide — Radharaman Sethi" />
+  <meta property="og:description" content="“No valid host was found” is Nova&#x27;s least helpful error. Here&#x27;s the order I check things in, from the fault message down to Placement inventory." />
+  <meta property="og:url" content="https://radharamansethi.github.io/blog/debugging-novalidhost/" />
+  <meta property="og:image" content="https://radharamansethi.github.io/assets/img/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate" type="application/rss+xml" title="Radharaman Sethi — Blog" href="../../feed.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (!t) t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Debugging NoValidHost: A Field Guide", "description": "\u201cNo valid host was found\u201d is Nova's least helpful error. Here's the order I check things in, from the fault message down to Placement inventory.", "datePublished": "2026-08-20", "author": {"@type": "Person", "name": "Radharaman Sethi", "url": "https://radharamansethi.github.io"}, "url": "https://radharamansethi.github.io/blog/debugging-novalidhost/"}</script>
+</head>
+<body data-root="../../">
+
+  <div class="progress" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="container">
+      <a href="../../" class="logo" aria-label="Radharaman Sethi — home"><span class="logo-mark">RS</span><span>radharaman<span class="grad-text">.</span></span></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="../../#about">About</a></li>
+        <li><a href="../../#experience">Experience</a></li>
+        <li><a href="../../#skills">Skills</a></li>
+        <li><a href="../../#projects">Projects</a></li>
+        <li><a href="../../blog/" class="active">Blog</a></li>
+        <li><a href="../../#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="kbd-hint" type="button" aria-label="Open command palette"><span>Search</span><kbd>Ctrl K</kbd></button>
+        <button class="icon-btn theme-toggle" type="button" aria-label="Toggle colour theme">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" type="button" aria-label="Open menu" aria-controls="nav-links" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <header class="article-head">
+        <div class="container">
+          <a href="../../blog/" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 19l-7-7 7-7"/></svg> All articles</a>
+          <div class="tags" style="justify-content:center"><a class="tag" href="../../blog/?tag=OpenStack">OpenStack</a><a class="tag" href="../../blog/?tag=Nova">Nova</a><a class="tag" href="../../blog/?tag=Troubleshooting">Troubleshooting</a></div>
+          <h1>Debugging NoValidHost: A Field Guide</h1>
+          <p class="dek">“No valid host was found” is Nova's least helpful error. Here's the order I check things in, from the fault message down to Placement inventory.</p>
+          <div class="post-meta"><span>Radharaman Sethi</span><span class="dot"></span><time datetime="2026-08-20">Aug 20, 2026</time><span class="dot"></span><span>7 min read</span></div>
+        </div>
+      </header>
+
+      <div class="container">
+        <div class="article-cover cover-3" style="max-width:1000px;margin-inline:auto"><span class="emoji" aria-hidden="true">🔍</span></div>
+        <div class="article-layout">
+          <div class="prose">
+
+<p>If you've run OpenStack for more than a week, you've seen it:</p>
+<div class="code-block"><div class="code-head"><span>text</span><button class="copy-btn" type="button">Copy</button></div><pre><code>No valid host was found. There are not enough hosts available.</code></pre></div>
+<p>It's Nova's least helpful error. It tells you the scheduler gave up, but not why. Over time I've settled on a fixed order for chasing it down, starting with the cheapest checks and moving towards the deep ones. Here it is.</p>
+
+<h2>1. Read the fault, then the scheduler log</h2>
+<p>Start with what Nova recorded on the instance itself:</p>
+<div class="code-block"><div class="code-head"><span>bash</span><button class="copy-btn" type="button">Copy</button></div><pre><code>openstack server show &lt;server-id&gt; -c fault -f yaml</code></pre></div>
+<p>The fault message is usually the generic sentence above, but it gives you a timestamp and request ID. Take that request ID to the scheduler log. On a Kolla-Ansible deployment, logs live under <code>/var/log/kolla/</code> on the controllers:</p>
+<div class="code-block"><div class="code-head"><span>bash</span><button class="copy-btn" type="button">Copy</button></div><pre><code>grep &lt;request-id&gt; /var/log/kolla/nova/nova-scheduler.log</code></pre></div>
+<p>Look for lines saying a filter returned <strong>0 hosts</strong>. That one line usually turns "something is wrong" into "the AggregateInstanceExtraSpecsFilter rejected everything", which is a much better problem to have.</p>
+<div class="callout"><span class="ci">💡</span><p>If the scheduler log shows Placement returned <strong>no allocation candidates</strong>, the filters never ran. Skip straight to step 4: it's a capacity or inventory problem, not a filtering one.</p></div>
+
+<h2>2. Are the compute services actually up?</h2>
+<p>A surprising number of NoValidHost errors come down to compute nodes that Nova doesn't consider usable:</p>
+<div class="code-block"><div class="code-head"><span>bash</span><button class="copy-btn" type="button">Copy</button></div><pre><code>openstack compute service list --service nova-compute
+openstack hypervisor list</code></pre></div>
+<p>Check for three things:</p>
+<ul>
+  <li><strong>State <code>down</code></strong>: <code>nova-compute</code> isn't reporting in. Check its container and log on that host, and look at RabbitMQ connectivity.</li>
+  <li><strong>Status <code>disabled</code></strong>: someone (or something) disabled it, often during maintenance. Re-enable it with <code>openstack compute service set --enable &lt;host&gt; nova-compute</code>.</li>
+  <li><strong>Missing hypervisor</strong>: a new compute node that never got mapped to a cell. Run <code>nova-manage cell_v2 discover_hosts --verbose</code> from a Nova container that has <code>nova-manage</code>.</li>
+</ul>
+
+<h2>3. Check what the request is actually asking for</h2>
+<p>Before blaming capacity, look at the flavor and the image. Both can carry constraints that quietly shrink the set of eligible hosts:</p>
+<div class="code-block"><div class="code-head"><span>bash</span><button class="copy-btn" type="button">Copy</button></div><pre><code>openstack flavor show &lt;flavor&gt; -c vcpus -c ram -c disk -c properties
+openstack image show &lt;image&gt; -c properties</code></pre></div>
+<ul>
+  <li><strong>Flavor extra specs</strong> that point at a host aggregate no compute node belongs to.</li>
+  <li><strong>Image properties</strong> (<code>hw_*</code>, architecture, hypervisor type) that no host can satisfy.</li>
+  <li><strong>Availability zone</strong> requests that point at a zone with no healthy hosts.</li>
+  <li><strong>Server groups</strong> with an anti-affinity policy and more members than you have hosts.</li>
+</ul>
+
+<h2>4. Ask Placement directly</h2>
+<p>Placement tracks every compute node as a <em>resource provider</em> with an inventory (VCPU, MEMORY_MB, DISK_GB) and usage. With the <code>osc-placement</code> plugin installed, you can ask the same question the scheduler asks:</p>
+<div class="code-block"><div class="code-head"><span>bash</span><button class="copy-btn" type="button">Copy</button></div><pre><code><span class="c"># can ANY provider satisfy this request?</span>
+openstack allocation candidate list \
+  --resource VCPU=4 --resource MEMORY_MB=8192 --resource DISK_GB=40
+
+<span class="c"># inspect one provider's inventory and usage</span>
+openstack resource provider list
+openstack resource provider inventory list &lt;rp-uuid&gt;
+openstack resource provider usage show &lt;rp-uuid&gt;</code></pre></div>
+<p>If the candidate list is empty, compare <strong>usage</strong> with <strong>total × allocation_ratio − reserved</strong> for each resource. The usual culprits are:</p>
+<ul>
+  <li><strong>Allocation ratios</strong> set lower than you think. In Kolla-Ansible these are set through a <code>nova.conf</code> override, so check what's actually deployed rather than what you remember setting.</li>
+  <li><strong>Disk</strong>: DISK_GB depends on your storage backend. With local ephemeral disks it's per host. With RBD-backed ephemeral disks, every compute node reports the same shared Ceph pool, so one nearly full pool can make every host look full at once. Boot-from-volume flavors with a 0 GB root disk don't request DISK_GB at all.</li>
+  <li><strong>Leaked allocations</strong> from deleted or failed instances that still hold resources. Placement's <code>heal_allocations</code> and audit tooling in <code>nova-manage placement</code> can help, but read what they'll change before you run them.</li>
+</ul>
+
+<h2>5. Think about the real capacity</h2>
+<p>Sometimes the answer is honest: you're out of room. Fragmentation is the sneaky version, where the cluster has 64 free vCPUs in total but no single host has 8. Cluster-wide totals hide this, while per-provider usage shows it immediately.</p>
+<blockquote>NoValidHost is rarely one big failure. It's usually one small constraint you forgot was there.</blockquote>
+
+<h2>My checklist</h2>
+<ol>
+  <li>Fault and request ID → scheduler log → which filter returned 0 hosts?</li>
+  <li>Compute services up, enabled and mapped to a cell?</li>
+  <li>Flavor extra specs, image properties, AZ and server groups?</li>
+  <li>Placement allocation candidates, inventory, usage and allocation ratios?</li>
+  <li>Real capacity and per-host fragmentation?</li>
+</ol>
+<p>Working through it in this order has turned most of my NoValidHost tickets from hour-long hunts into ten-minute fixes. 🔍</p>
+
+          </div>
+          <aside class="toc" aria-label="Table of contents"><h4>On this page</h4><ol></ol></aside>
+        </div>
+
+        <div class="article-foot">
+          <div class="share">
+            <span>Found this useful? Pass it on.</span>
+            <button class="btn btn-ghost" type="button" data-share><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg> Share</button>
+            <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=https://radharamansethi.github.io/blog/debugging-novalidhost/"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg> LinkedIn</a>
+          </div>
+          <p class="disclaimer" style="padding-top:24px">This post reflects my personal views and publicly available information only. It does not represent any employer, client or product.</p>
+          <div class="author-box">
+            <div class="mini-avatar">RS</div>
+            <div>
+              <h4>Written by Radharaman Sethi</h4>
+              <p>OpenStack infrastructure engineer writing about private cloud, networking and security. <a href="../../#contact" style="color:var(--accent-2)">Say hi →</a></p>
+            </div>
+          </div>
+          <div class="next-posts">
+            <h3>Keep reading</h3>
+            <div class="posts-grid" data-posts="related" data-current="debugging-novalidhost"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span data-year>2026</span> Radharaman Sethi · Views are my own and do not represent any employer.</span>
+      <div class="footer-links">
+        <a href="https://github.com/radharamansethi" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/radharaman-sethi-53a3b1200/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:rrsethi13112001@gmail.com">Email</a>
+        <a href="../../feed.xml">RSS</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/posts.js"></script>
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

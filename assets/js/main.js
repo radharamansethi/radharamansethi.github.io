@@ -92,13 +92,14 @@
     const lines = [
       ['<span class="t-prompt">~ $</span> whoami', 0],
       ['radharaman-sethi', 1],
-      ['<span class="t-prompt">~ $</span> cat profile.json', 0],
-      ['{', 1],
-      ['  <span class="t-key">"role"</span>: <span class="t-str">"Software Developer"</span>,', 1],
-      ['  <span class="t-key">"loves"</span>: [<span class="t-str">"clean code"</span>, <span class="t-str">"containers"</span>, <span class="t-str">"chai"</span>],', 1],
-      ['  <span class="t-key">"writing"</span>: <span class="t-str">"about what I learn"</span>,', 1],
-      ['  <span class="t-key">"open_to"</span>: <span class="t-str">"interesting problems"</span>', 1],
-      ['}', 1],
+      ['<span class="t-prompt">~ $</span> cat profile.yaml', 0],
+      ['<span class="t-key">role</span>: <span class="t-str">OpenStack Infrastructure Engineer</span>', 1],
+      ['<span class="t-key">based</span>: <span class="t-str">Gurugram, India</span>', 1],
+      ['<span class="t-key">stack</span>: [<span class="t-str">Kolla-Ansible</span>, <span class="t-str">Nova</span>, <span class="t-str">Neutron</span>, <span class="t-str">Cinder</span>, <span class="t-str">Ceph</span>]', 1],
+      ['<span class="t-key">learning</span>: <span class="t-str">Kubernetes (CKA)</span>', 1],
+      ['<span class="t-prompt">~ $</span> kolla-ansible deploy -i multinode', 0],
+      ['<span class="t-muted">PLAY RECAP ****************************</span>', 1],
+      ['ctl01 : ok=<span class="t-str">412</span>  changed=<span class="t-str">38</span>  failed=<span class="t-str">0</span>', 1],
       ['<span class="t-prompt">~ $</span> <span class="caret"></span>', 0],
     ];
     const render = (n) => (term.innerHTML = lines.slice(0, n).map(([l]) => `<div class="ln">${l}</div>`).join(""));
@@ -114,12 +115,13 @@
   const countUp = (el) => {
     const target = +el.dataset.count;
     const suffix = el.dataset.suffix || "";
-    if (reduceMotion) { el.textContent = target + suffix; return; }
+    const dec = +(el.dataset.decimals || 0);
+    if (reduceMotion) { el.textContent = target.toFixed(dec) + suffix; return; }
     const start = performance.now();
     const dur = 1400;
     const frame = (t) => {
       const p = Math.min((t - start) / dur, 1);
-      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
+      el.textContent = (target * (1 - Math.pow(1 - p, 3))).toFixed(dec) + suffix;
       if (p < 1) requestAnimationFrame(frame);
     };
     requestAnimationFrame(frame);
@@ -253,13 +255,15 @@
   const items = [
     { g: "Navigate", i: "🏠", t: "Home", u: root },
     { g: "Navigate", i: "👋", t: "About", u: root + "#about" },
+    { g: "Navigate", i: "💼", t: "Experience", u: root + "#experience" },
     { g: "Navigate", i: "🛠️", t: "Skills", u: root + "#skills" },
+    { g: "Navigate", i: "🎓", t: "Certifications", u: root + "#certs" },
     { g: "Navigate", i: "📦", t: "Projects", u: root + "#projects" },
     { g: "Navigate", i: "✍️", t: "Blog", u: root + "blog/" },
     { g: "Navigate", i: "📬", t: "Contact", u: root + "#contact" },
     ...posts.map((p) => ({ g: "Articles", i: p.emoji, t: p.title, u: `${root}blog/${p.slug}/` })),
     { g: "Elsewhere", i: "🐙", t: "GitHub", u: "https://github.com/radharamansethi", ext: true },
-    { g: "Elsewhere", i: "💼", t: "LinkedIn", u: "https://www.linkedin.com/in/radharaman-sethi-53a3b1200/", ext: true },
+    { g: "Elsewhere", i: "🔗", t: "LinkedIn", u: "https://www.linkedin.com/in/radharaman-sethi-53a3b1200/", ext: true },
     { g: "Actions", i: "🌗", t: "Toggle theme", a: () => themeBtn?.click() },
     { g: "Actions", i: "📋", t: "Copy email address", a: () => copy("rrsethi13112001@gmail.com", "Email copied") },
   ];

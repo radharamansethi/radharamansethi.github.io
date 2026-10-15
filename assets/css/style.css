@@ -587,3 +587,39 @@ footer a:hover { color: var(--text); }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ---------- experience extras ---------- */
+.tl-org { color: var(--muted); font-size: 15px; margin: -4px 0 12px; }
+.tl-org b { color: var(--text); font-weight: 600; }
+.tl-item ul { margin: 0; padding-left: 1.1em; color: var(--muted); font-size: 16px; }
+.tl-item ul li + li { margin-top: 6px; }
+.tl-item ul li::marker { color: var(--accent); }
+.tl-item .tags { margin-top: 14px; }
+
+/* ---------- certifications & leadership ---------- */
+.certs-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; }
+.cert-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.cert-list li { display: flex; gap: 14px; align-items: flex-start; }
+.cert-list .ci {
+  width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0; display: grid; place-items: center; font-size: 18px;
+  background: var(--surface-2); border: 1px solid var(--border);
+}
+.cert-list b { display: block; font-weight: 600; }
+.cert-list span { color: var(--muted); font-size: 14px; }
+.card h3.card-title { font-family: var(--display); font-size: 22px; margin: 0 0 20px; }
+.status { display: inline-block; font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 999px; margin-left: 6px; vertical-align: 2px;
+  background: color-mix(in srgb, #eab308 18%, transparent); color: #eab308; border: 1px solid color-mix(in srgb, #eab308 35%, transparent); }
+@media (max-width: 860px) { .certs-grid { grid-template-columns: 1fr; } }
+.disclaimer { color: var(--faint); font-size: 13px; font-style: italic; margin: 0; }
+.prose .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); }
+.prose table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.55; }
+.prose th, .prose td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.prose th { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); font-weight: 500; }
+.prose tbody tr:last-child td { border-bottom: 0; }
+.prose td:first-child { font-weight: 600; color: var(--text); min-width: 140px; }
+.prose ul.checklist { list-style: none; padding-left: 0; }
+.prose ul.checklist li { position: relative; padding-left: 34px; }
+.prose ul.checklist li::before {
+  content: "✓"; position: absolute; left: 0; top: 3px; width: 22px; height: 22px; border-radius: 7px; display: grid; place-items: center;
+  font-size: 13px; font-weight: 700; color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 12%, transparent); border: 1px solid color-mix(in srgb, var(--accent-2) 30%, transparent);
+}
