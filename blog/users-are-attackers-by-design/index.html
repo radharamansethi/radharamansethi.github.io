@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>When Your Users Are Attackers by Design — Radharaman Sethi</title>
-  <meta name="description" content="Cyber range isolation lessons from 2026&#x27;s OpenStack and KVM disclosures — hypervisor, image pipeline, tenant network and browser console." />
+  <meta name="description" content="Isolation lessons from 2026&#x27;s OpenStack and KVM disclosures — hypervisor, image pipeline, tenant network and browser console." />
   <meta name="author" content="Radharaman Sethi" />
   <meta name="theme-color" content="#07070c" />
   <link rel="canonical" href="https://radharamansethi.github.io/blog/users-are-attackers-by-design/" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="When Your Users Are Attackers by Design — Radharaman Sethi" />
-  <meta property="og:description" content="Cyber range isolation lessons from 2026&#x27;s OpenStack and KVM disclosures — hypervisor, image pipeline, tenant network and browser console." />
+  <meta property="og:description" content="Isolation lessons from 2026&#x27;s OpenStack and KVM disclosures — hypervisor, image pipeline, tenant network and browser console." />
   <meta property="og:url" content="https://radharamansethi.github.io/blog/users-are-attackers-by-design/" />
   <meta property="og:image" content="https://radharamansethi.github.io/assets/img/og.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -28,7 +28,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "When Your Users Are Attackers by Design", "description": "Cyber range isolation lessons from 2026's OpenStack and KVM disclosures \u2014 hypervisor, image pipeline, tenant network and browser console.", "datePublished": "2026-10-05", "author": {"@type": "Person", "name": "Radharaman Sethi", "url": "https://radharamansethi.github.io"}, "url": "https://radharamansethi.github.io/blog/users-are-attackers-by-design/"}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "When Your Users Are Attackers by Design", "description": "Isolation lessons from 2026's OpenStack and KVM disclosures \u2014 hypervisor, image pipeline, tenant network and browser console.", "datePublished": "2026-10-05", "author": {"@type": "Person", "name": "Radharaman Sethi", "url": "https://radharamansethi.github.io"}, "url": "https://radharamansethi.github.io/blog/users-are-attackers-by-design/"}</script>
 </head>
 <body data-root="../../">
 
@@ -66,9 +66,9 @@
       <header class="article-head">
         <div class="container">
           <a href="../../blog/" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 19l-7-7 7-7"/></svg> All articles</a>
-          <div class="tags" style="justify-content:center"><a class="tag" href="../../blog/?tag=OpenStack">OpenStack</a><a class="tag" href="../../blog/?tag=Security">Security</a><a class="tag" href="../../blog/?tag=Cyber Ranges">Cyber Ranges</a></div>
+          <div class="tags" style="justify-content:center"><a class="tag" href="../../blog/?tag=OpenStack">OpenStack</a><a class="tag" href="../../blog/?tag=Security">Security</a></div>
           <h1>When Your Users Are Attackers by Design</h1>
-          <p class="dek">Cyber range isolation lessons from 2026's OpenStack and KVM disclosures — hypervisor, image pipeline, tenant network and browser console.</p>
+          <p class="dek">Isolation lessons from 2026's OpenStack and KVM disclosures — hypervisor, image pipeline, tenant network and browser console.</p>
           <div class="post-meta"><span>Radharaman Sethi</span><span class="dot"></span><time datetime="2026-10-05">Oct 5, 2026</time><span class="dot"></span><span>9 min read</span></div>
         </div>
       </header>
@@ -79,7 +79,7 @@
           <div class="prose">
 
 <p>In most clouds, a tenant who attacks the platform is an incident. On a cyber range, it is the curriculum. Participants get root on their machines, attack tooling, and an explicit mandate to probe, pivot and escalate. That makes a range the most adversarial tenant population an OpenStack cloud can host.</p>
-<p>2026 has been a busy year for OpenStack and KVM security disclosures. Read from a cyber range point of view, four of them map neatly onto the four isolation layers every range depends on: the hypervisor, the image pipeline, the tenant network, and the browser console. This post walks through each disclosure and what it means when your users are attackers by design.</p>
+<p>2026 has been a busy year for OpenStack and KVM security disclosures. Four of them map neatly onto the four isolation layers any OpenStack cloud with untrusted tenants depends on: the hypervisor, the image pipeline, the tenant network, and the browser console. Cyber ranges are the extreme case, so I'll use them as the lens. The same reasoning applies to any public or shared OpenStack cloud.</p>
 
 <h2>Layer 1: The hypervisor boundary (CVE-2026-53359, "Januscape")</h2>
 <p>On July 4, 2026, NVD published CVE-2026-53359, a use-after-free in the Linux kernel's KVM x86 shadow MMU, disclosed publicly as Januscape. It is not an OpenStack bug, but every KVM-based OpenStack compute node inherits it. According to the public disclosure, a guest can trigger it on Intel and AMD hosts when nested virtualization is exposed. A denial-of-service proof of concept is public, and the researcher reports a working guest-to-host escape in a controlled environment.</p>

@@ -3,21 +3,21 @@
   <channel>
     <title>Radharaman Sethi — Blog</title>
     <link>https://radharamansethi.github.io/blog/</link>
-    <description>Notes on OpenStack, cloud networking and infrastructure security.</description>
+    <description>Notes on OpenStack, OpenStack troubleshooting and DevOps.</description>
     <language>en</language>
-    <item>
-      <title>Train Like It&#x27;s Real</title>
-      <link>https://radharamansethi.github.io/blog/train-like-its-real/</link>
-      <guid>https://radharamansethi.github.io/blog/train-like-its-real/</guid>
-      <pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate>
-      <description>Why the teams that handle incidents well have usually handled them before — and what realistic, hands-on practice actually takes.</description>
-    </item>
     <item>
       <title>When Your Users Are Attackers by Design</title>
       <link>https://radharamansethi.github.io/blog/users-are-attackers-by-design/</link>
       <guid>https://radharamansethi.github.io/blog/users-are-attackers-by-design/</guid>
       <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
-      <description>Cyber range isolation lessons from 2026&#x27;s OpenStack and KVM disclosures — hypervisor, image pipeline, tenant network and browser console.</description>
+      <description>Isolation lessons from 2026&#x27;s OpenStack and KVM disclosures — hypervisor, image pipeline, tenant network and browser console.</description>
+    </item>
+    <item>
+      <title>Running a Local Container Registry for Kolla-Ansible</title>
+      <link>https://radharamansethi.github.io/blog/kolla-local-registry/</link>
+      <guid>https://radharamansethi.github.io/blog/kolla-local-registry/</guid>
+      <pubDate>Mon, 28 Sep 2026 00:00:00 +0000</pubDate>
+      <description>Faster deploys, pinned images and air-gap readiness — how to mirror Kolla images into your own registry and point your cloud at it.</description>
     </item>
     <item>
       <title>Planning the Network for a Kolla-Ansible OpenStack Cloud</title>
@@ -27,11 +27,25 @@
       <description>Bonds, VLANs, jumbo frames and VIPs — a practical way to lay out the networks before you run your first kolla-ansible deploy.</description>
     </item>
     <item>
+      <title>When the Control Plane Wobbles: RabbitMQ and MariaDB Galera</title>
+      <link>https://radharamansethi.github.io/blog/rabbitmq-galera-troubleshooting/</link>
+      <guid>https://radharamansethi.github.io/blog/rabbitmq-galera-troubleshooting/</guid>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
+      <description>API calls hang, instances sit in BUILD and logs fill with MessagingTimeout. A calm, ordered way to check HAProxy, RabbitMQ and Galera.</description>
+    </item>
+    <item>
       <title>Debugging NoValidHost: A Field Guide</title>
       <link>https://radharamansethi.github.io/blog/debugging-novalidhost/</link>
       <guid>https://radharamansethi.github.io/blog/debugging-novalidhost/</guid>
       <pubDate>Thu, 20 Aug 2026 00:00:00 +0000</pubDate>
       <description>“No valid host was found” is Nova&#x27;s least helpful error. Here&#x27;s the order I check things in, from the fault message down to Placement inventory.</description>
+    </item>
+    <item>
+      <title>Cinder Volume Won&#x27;t Attach? Troubleshooting iSCSI and Ceph RBD</title>
+      <link>https://radharamansethi.github.io/blog/cinder-attach-troubleshooting/</link>
+      <guid>https://radharamansethi.github.io/blog/cinder-attach-troubleshooting/</guid>
+      <pubDate>Thu, 30 Jul 2026 00:00:00 +0000</pubDate>
+      <description>Volumes stuck in “attaching”, boot-from-volume failures and os-brick errors — where to look for LVM/iSCSI and Ceph-backed storage.</description>
     </item>
   </channel>
 </rss>

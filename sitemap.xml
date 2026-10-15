@@ -2,8 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://radharamansethi.github.io/</loc><priority>1.0</priority></url>
   <url><loc>https://radharamansethi.github.io/blog/</loc><priority>0.8</priority></url>
-  <url><loc>https://radharamansethi.github.io/blog/train-like-its-real/</loc><priority>0.7</priority></url>
   <url><loc>https://radharamansethi.github.io/blog/users-are-attackers-by-design/</loc><priority>0.7</priority></url>
+  <url><loc>https://radharamansethi.github.io/blog/kolla-local-registry/</loc><priority>0.7</priority></url>
   <url><loc>https://radharamansethi.github.io/blog/kolla-ansible-network-planning/</loc><priority>0.7</priority></url>
+  <url><loc>https://radharamansethi.github.io/blog/rabbitmq-galera-troubleshooting/</loc><priority>0.7</priority></url>
   <url><loc>https://radharamansethi.github.io/blog/debugging-novalidhost/</loc><priority>0.7</priority></url>
+  <url><loc>https://radharamansethi.github.io/blog/cinder-attach-troubleshooting/</loc><priority>0.7</priority></url>
 </urlset>
